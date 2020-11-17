@@ -2,21 +2,40 @@ class AppContainer {
     static meals = []
     categories = []
     url = "http://localhost:3000"
-    dailyLog = {}
+    static dailyLog = {}
 
     bindEventListeners() {
         const bttn = document.getElementById('createDailyFood')
         bttn.addEventListener("click", this.getRandomMeals)
     }
 
+    // getDailyLog() {
+    //     this.getRandomMeals()
+    //     this.renderDailyMeals()
+    // }
+
     getRandomMeals() {
         let dailyMeals = []
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 3; i++) {
             //change function to select a meal for each category, other than accross all categories
             dailyMeals.push(AppContainer.meals[Math.floor(Math.random()*AppContainer.meals.length)])
         }
-        return dailyMeals
+        // instantiate dailylog instance with these activities 
+        new DailyLog(dailyMeals)
+        //insert data into DOM
+        const dailyFoodDiv = document.getElementById('dailyFood')
+        AppContainer.dailyLog.meals.forEach(dailyLog => {
+            const foodDiv = document.createElement('div')
+            foodDiv.innerText = dailyLog.name
+            dailyFoodDiv.appendChild(foodDiv)
+        })
     }
+
+    // renderDailyMeals() {
+    //     const dailyFoodDiv = document.getElementById('dailyFood')
+    //     debugger
+    //     dailyFoodDiv.innerText = AppContainer.dailyLog
+    // }
 
     getMeals() {
         // fetch meals
