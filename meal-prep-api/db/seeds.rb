@@ -6,8 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Meal.create(name: "Protein Waffles")
-Meal.create(name: "Spinach Omelette")
-Meal.create(name: "Turkey Bacon & Eggs")
-Meal.create(name: "Oatmeal w/ Walnuts")
-Meal.create(name: "Chilaquiles")
+Category.destroy_all
+Meal.destroy_all
+
+breakfast = Category.create(name: "Breakfast")
+lunch = Category.create(name: "Lunch")
+dinner = Category.create(name: "Dinner")
+
+Meal.create(name: "Protein Waffles", category: breakfast)
+Meal.create(name: "Spinach Omelette", category: breakfast)
+Meal.create(name: "Turkey Bacon & Eggs", category: breakfast)
+Meal.create(name: "Oatmeal w/ Walnuts", category: breakfast)
+Meal.create(name: "Chilaquiles", category: breakfast)
+Meal.create(name: "Turkey Sandwich", category: lunch)
+Meal.create(name: "Steak and Veggies", category: dinner)
+
