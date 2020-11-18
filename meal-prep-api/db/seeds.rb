@@ -9,9 +9,9 @@
 Category.destroy_all
 Meal.destroy_all
 
-breakfast = Category.create(name: "Breakfast")
-lunch = Category.create(name: "Lunch")
-dinner = Category.create(name: "Dinner")
+breakfast = Category.create(name: "breakfast")
+lunch = Category.create(name: "lunch")
+dinner = Category.create(name: "dinner")
 
 Meal.create(name: "Protein Waffles", category: breakfast)
 Meal.create(name: "Spinach Omelette", category: breakfast)

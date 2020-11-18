@@ -1,6 +1,6 @@
 class AppContainer {
     static meals = []
-    categories = []
+    static categories = []
     url = "http://localhost:3000"
     static dailyLog = {}
 
@@ -16,17 +16,20 @@ class AppContainer {
 
     getRandomMeals() {
         let dailyMeals = []
-        for (let i = 0; i < 3; i++) {
-            //change function to select a meal for each category, other than accross all categories
-            dailyMeals.push(AppContainer.meals[Math.floor(Math.random()*AppContainer.meals.length)])
-        }
+        Category.all.forEach(category => {
+            dailyMeals.push(Meal.byCategory(category.name)[Math.floor(Math.random()*Meal.byCategory(category.name).length)])
+        })
+        // for (let i = 0; i < 3; i++) {
+        //     //change function to select a meal for each category, other than accross all categories
+        //     dailyMeals.push(AppContainer.meals[Math.floor(Math.random()*AppContainer.meals.length)])
+        // }
         // instantiate dailylog instance with these activities 
         new DailyLog(dailyMeals)
         //insert data into DOM
         const dailyFoodDiv = document.getElementById('dailyFood')
-        AppContainer.dailyLog.meals.forEach(dailyLog => {
+        AppContainer.dailyLog.meals.forEach(meal => {
             const foodDiv = document.createElement('div')
-            foodDiv.innerText = dailyLog.name
+            foodDiv.innerText = meal.name
             dailyFoodDiv.appendChild(foodDiv)
         })
     }
@@ -46,6 +49,9 @@ class AppContainer {
             console.log(data)
             data.forEach(meal => {
                 new Meal(meal.name, meal.category)
+                if (!Category.all.map(category => category.name).includes(meal.category.name)) {
+                    new Category(meal.category.name)
+                }
             })
             //call rendermeals
             this.renderMeals()
@@ -65,13 +71,13 @@ class AppContainer {
             // append will be conditional based on what category it belongs to
             // debugger
             switch(meal.category.name) {
-                case "Breakfast":
+                case "breakfast":
                     breakfastSelect.appendChild(option);
                   break;
-                case "Lunch":
+                case "lunch":
                     lunchSelect.appendChild(option);
                   break;
-                case "Dinner":
+                case "dinner":
                   dinnerSelect.appendChild(option);
                  break;
               }
