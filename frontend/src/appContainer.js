@@ -6,7 +6,29 @@ class AppContainer {
 
     bindEventListeners() {
         const bttn = document.getElementById('createDailyFood')
-        bttn.addEventListener("click", this.getRandomMeals)
+        bttn.addEventListener("click", () => this.getRandomMeals())
+
+        const NewMealFrom = document.getElementById('newMeal')
+        NewMealFrom.addEventListener("submit", () => this.createMeal(event))
+    }
+
+    createMeal(event) {
+        event.preventDefault()
+        console.log(this)
+        fetch(`${this.url}/meals`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: "Chicken Teriyaki",
+                category: "Lunch"
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
     }
 
     // getDailyLog() {
@@ -32,16 +54,16 @@ class AppContainer {
             foodDiv.innerText = meal.name
             dailyFoodDiv.appendChild(foodDiv)
         })
-        // dailyMeals.forEach(meal => {
-            fetch(`http://localhost:3000/meals/${dailyMeals[0].id}`, {
+
+        // prevent db lock... use setTimout
+        dailyMeals.forEach(meal => {
+            fetch(`${this.url}/${meal.id}`, {
                 method: 'DELETE',
-                headers: {
-                    'content-type': 'application/json'
-                }
             })
             .then(resp => resp.json())
             .then(data => console.log(data))
-        // })
+            .catch(error => console.log(error))
+        })
         
     }
 
