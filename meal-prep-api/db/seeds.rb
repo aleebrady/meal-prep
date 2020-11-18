@@ -19,5 +19,7 @@ Meal.create(name: "Turkey Bacon & Eggs", category: breakfast)
 Meal.create(name: "Oatmeal w/ Walnuts", category: breakfast)
 Meal.create(name: "Chilaquiles", category: breakfast)
 Meal.create(name: "Turkey Sandwich", category: lunch)
+Meal.create(name: "Chicken Breast Wrap", category: lunch)
 Meal.create(name: "Steak and Veggies", category: dinner)
+Meal.create(name: "Chicken Wings & Rice", category: dinner)
 
