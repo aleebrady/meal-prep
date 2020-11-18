@@ -1,7 +1,8 @@
 class Meal {
-    constructor(name, category) {
+    constructor(id, name, category) {
         this.name = name
         this.category = category
+        this.id = id
         AppContainer.meals.push(this)
     }
 

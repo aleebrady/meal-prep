@@ -32,6 +32,17 @@ class AppContainer {
             foodDiv.innerText = meal.name
             dailyFoodDiv.appendChild(foodDiv)
         })
+        // dailyMeals.forEach(meal => {
+            fetch(`http://localhost:3000/meals/${dailyMeals[0].id}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
+            .then(resp => resp.json())
+            .then(data => console.log(data))
+        // })
+        
     }
 
     // renderDailyMeals() {
@@ -48,7 +59,7 @@ class AppContainer {
         .then(data => {
             console.log(data)
             data.forEach(meal => {
-                new Meal(meal.name, meal.category)
+                new Meal(meal.id, meal.name, meal.category)
                 if (!Category.all.map(category => category.name).includes(meal.category.name)) {
                     new Category(meal.category.name)
                 }
