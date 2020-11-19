@@ -54,6 +54,7 @@ class AppContainer {
         new DailyLog(dailyMeals)
         //insert data into DOM
         const dailyFoodDiv = document.getElementById('dailyFood')
+        dailyFoodDiv.innerHTML = ""
         AppContainer.dailyLog.meals.forEach(meal => {
             const foodDiv = document.createElement('div')
             foodDiv.innerText = meal.name
@@ -61,17 +62,20 @@ class AppContainer {
         })
 
         // prevent db lock... use setTimout
-        dailyMeals.forEach(meal => {
-            fetch(`${this.url}/meals/${meal.id}`, {
-                method: 'DELETE',
-            })
-            .then(resp => resp.json())
-            .then(data => {
-                console.log(data)
-                Meal.delete(data.id)
-                this.renderMeals()
-            })
-            .catch(error => console.log(error))
+        dailyMeals.forEach((meal, i) => {
+            setTimeout(() => {
+                fetch(`${this.url}/meals/${meal.id}`, {
+                    method: 'DELETE',
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log(data)
+                    Meal.delete(data.id)
+                    this.renderMeals()
+                })
+                .catch(error => console.log(error))
+            }, 500 * i);
+            
         })
         
     }
