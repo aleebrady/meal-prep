@@ -58,7 +58,7 @@ class AppContainer {
 
         // prevent db lock... use setTimout
         dailyMeals.forEach(meal => {
-            fetch(`${this.url}/${meal.id}`, {
+            fetch(`${this.url}/meals/${meal.id}`, {
                 method: 'DELETE',
             })
             .then(resp => resp.json())
