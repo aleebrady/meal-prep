@@ -8,7 +8,7 @@ class MealsController < ApplicationController
     def create
         category = Category.find_by(name: params[:category].downcase)
         meal = Meal.create(name: params[:name], category: category)
-        render :json => meal, :status => 201
+        render :json => meal, :include => :category, :status => 201
     end
 
     def destroy

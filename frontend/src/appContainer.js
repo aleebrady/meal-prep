@@ -28,7 +28,11 @@ class AppContainer {
             })
         })
         .then(resp => resp.json())
-        .then(data => console.log(data))
+        .then(data => {
+            const { id, name, category } = data
+            new Meal(id, name, category)
+            this.renderMeals()
+        })
         .catch(error => console.log(error))
     }
 
@@ -99,6 +103,9 @@ class AppContainer {
         const breakfastSelect = document.getElementById('breakfast');
         const lunchSelect = document.getElementById('lunch');
         const dinnerSelect = document.getElementById('dinner');
+        breakfastSelect.innerHTML = ""
+        lunchSelect.innerHTML = ""
+        dinnerSelect.innerHTML = ""
         AppContainer.meals.forEach(meal => {
             const option = document.createElement('option');
             option.innerText = meal.name;
