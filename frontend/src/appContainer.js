@@ -66,7 +66,11 @@ class AppContainer {
                 method: 'DELETE',
             })
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data)
+                Meal.delete(data.id)
+                this.renderMeals()
+            })
             .catch(error => console.log(error))
         })
         
