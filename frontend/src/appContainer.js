@@ -14,6 +14,7 @@ class AppContainer {
 
     createMeal(event) {
         event.preventDefault()
+        const data = event.target ;
         console.log(this)
         fetch(`${this.url}/meals`, {
             method: 'POST',
@@ -22,8 +23,8 @@ class AppContainer {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                name: "Chicken Teriyaki",
-                category: "Lunch"
+                name: data.meal.value,
+                category: data.children[2].value
             })
         })
         .then(resp => resp.json())
